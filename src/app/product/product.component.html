@@ -1,0 +1,247 @@
+<div class="page-container">
+    <h2 class="page-title">{{ data?.product ? 'Edit' : 'New' }} Product</h2>
+
+    <!-- Product Form -->
+    <form [formGroup]="form" (ngSubmit)="save()" class="product-form" novalidate>
+        <div class="form-grid">
+            <div class="field">
+                <label for="name">Name <span>*</span></label>
+                <input id="name" type="text" formControlName="name" required />
+                <small class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+                    Name is required.
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="image">Image <span>*</span></label>
+                <input id="image" type="text" formControlName="image" required />
+                <small class="error" *ngIf="form.get('image')?.touched && form.get('image')?.invalid">
+                    Image is required.
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="price">Price <span>*</span></label>
+                <input id="price" type="number" formControlName="price" min="0" step="0.01" required />
+                <small class="error" *ngIf="form.get('price')?.touched && form.get('price')?.invalid">
+                    Enter a valid price (≥ 0).
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="category_id">Category <span>*</span></label>
+                <select id="category_id" formControlName="category_id" required>
+                    <option value="" disabled>Select a category</option>
+                    <option *ngFor="let c of category" [value]="c.id">{{ c.name }}</option>
+                </select>
+                <small class="error" *ngIf="form.get('category_id')?.touched && form.get('category_id')?.invalid">
+                    Category is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save</button>
+        </div>
+    </form>
+
+    <!-- product-upload.component.html -->
+    <div class="upload-box">
+
+        <!-- Category Dropdown -->
+        <div class="field">
+            <label for="category_id">Category</label>
+            <select id="category_id" [(ngModel)]="selectedExcelCategory">
+                <option value="" disabled>Select a category</option>
+                <option *ngFor="let c of category" [value]="c.id">{{ c.name }}</option>
+            </select>
+        </div>
+
+        <!-- File Upload Section -->
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".xlsx,.xls">
+
+        <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+
+        <button type="button" [disabled]="selectedExcelCategory == ''" (click)="uploadFile()">
+            Upload
+        </button>
+
+        <div *ngIf="uploadStatus">{{ uploadStatus }}</div>
+        <div *ngIf="progress >= 0">Progress: {{progress}}%</div>
+    </div>
+
+
+    <div class="export-box">
+        <button type="button" (click)="download()" [disabled]="downloading">
+            {{ downloading ? 'Generating…' : 'Export Products to Excel' }}
+        </button>
+        <span *ngIf="status">{{ status }}</span>
+    </div>
+
+    <!-- <div class="product-table-container">
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of ($any(products) | slice:(page-1)*pageSize : (page-1)*pageSize + pageSize)">
+                    <td>{{ ($any(product)).name }}</td>
+                    <td><img [src]="($any(product)).image" [alt]="($any(product)).image" class="product-img" /></td>
+                    <td>{{ ($any(product)).price }}</td>
+                    <td>{{ ($any(product)).category_name }}</td>
+                    <td>
+                        <div class="actions">
+                            <button type="submit" class="btn btn-primary" style="margin-right: 0.5rem;"
+                                (click)="openModal(productModalTpl, product)">Edit</button>
+                            <button type="button" class="btn btn-outline"
+                                (click)="deleteProduct(($any(product)).id)">Delete</button>
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr *ngIf="!products?.length">
+                    <td colspan="4" class="empty">No products found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pager" *ngIf="products?.length">
+        <div class="pager-left">
+            <label>
+                Rows per page:
+                <select [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                    <option *ngFor="let s of pageSizeOptions" [value]="s">{{ s }}</option>
+                </select>
+            </label>
+            <span class="range">
+                {{ startIndex + 1 }}–{{ endIndex }} of {{ products.length }}
+            </span>
+        </div>
+
+        <div class="pager-right">
+            <button (click)="goToPage(1)" [disabled]="page === 1">« First</button>
+            <button (click)="prev()" [disabled]="page === 1">‹ Prev</button>
+            <span class="page-indicator">Page {{ page }} / {{ totalPages }}</span>
+            <button (click)="next()" [disabled]="page === totalPages">Next ›</button>
+            <button (click)="goToPage(totalPages)" [disabled]="page === totalPages">Last »</button>
+        </div>
+    </div> -->
+
+    <div class="toolbar">
+        <input type="text" placeholder="Search by name" [formControl]="searchCtrl" />
+    </div>
+    <div class="product-table-container">
+        <!-- Toolbar (optional) -->
+
+        <table class="product-table" *ngIf="!loading">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>{{ product?.name }}</td>
+                    <td>
+                        <img [src]="product?.image" [alt]="product?.name" class="product-img" />
+                    </td>
+                    <td>{{ product?.price }}</td>
+                    <td>{{ product?.category_name }}</td>
+                    <td>
+                        <div class="actions">
+                            <button type="button" class="btn btn-primary" style="margin-right: 0.5rem;"
+                                (click)="openModal(productModalTpl, product)">
+                                Edit
+                            </button>
+                            <button type="button" class="btn btn-outline" (click)="deleteProduct(product?.id)">
+                                Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="!products?.length">
+                    <!-- note: 5 columns -->
+                    <td colspan="5" class="empty">No products found.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="loading" class="loading">Loading…</div>
+
+        <!-- Pager -->
+
+    </div>
+    <div class="pager" *ngIf="!loading && total > 0">
+        <button (click)="prevPage()" [disabled]="page<=1">Prev</button>
+        <select (change)="onPageSizeChange($any($event.target).value)">
+            <option [selected]="pageSize===10" value="10">10</option>
+            <option [selected]="pageSize===20" value="20">20</option>
+            <option [selected]="pageSize===50" value="50">50</option>
+        </select>
+        <span>
+            Page {{page}} / {{totalPages}}
+            • Showing {{rangeStart}}–{{rangeEnd}} of {{total}}
+        </span>
+        <button (click)="nextPage()" [disabled]="page>=totalPages">Next</button>
+    </div>
+
+</div>
+
+<!-- The modal content template -->
+<ng-template #productModalTpl let-item="data" let-close="close">
+    <h2> Edit Product</h2>
+
+    <form [formGroup]="productEditForm" (ngSubmit)="editProduct()" class="product-form" novalidate>
+        <div class="field">
+            <label for="name">Name</label>
+            <input id="name" formControlName="name" type="text" />
+        </div>
+
+        <div class="field">
+            <label for="image">Image URL</label>
+            <input id="image" formControlName="image" type="text" />
+        </div>
+
+        <div class="field">
+            <label for="price">Price</label>
+            <input id="price" formControlName="price" type="number" min="0" step="0.01" />
+        </div>
+
+        <div class="field">
+            <label for="category_id">Category</label>
+            <select id="category_id" formControlName="category_id">
+                <option value="" disabled>Select a category</option>
+                <option *ngFor="let c of category" [value]="c.id">{{ c.name }}</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" formControlName="quantity" type="number" min="0" />
+        </div>
+
+        <div class="actions">
+            <div>
+                <button type="button" class="btn btn-outline" style="margin-left: 0.5rem;"
+                    [disabled]="productEditForm.invalid" (click)="cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="productEditForm.invalid"
+                    (click)="editProduct()">Save</button>
+            </div>
+        </div>
+    </form>
+
+</ng-template>
+

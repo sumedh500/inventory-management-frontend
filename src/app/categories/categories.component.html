@@ -1,0 +1,58 @@
+
+
+<div class="wrap">
+    <h2>Categories</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="product-btn">
+                <button (click)="addProduct()">Add Product</button>
+            </div>
+
+            <h3>{{ editing ? 'Edit Category' : 'Create Category' }}</h3>
+            <form [formGroup]="form" (ngSubmit)="save()">
+                <label>Name
+                    <input formControlName="name" placeholder="e.g., Electronics" />
+                </label>
+                <label>Description
+                    <textarea rows="3" formControlName="description" placeholder="Optional"></textarea>
+                </label>
+                <div class="row">
+                    <button type="submit" [disabled]="form.invalid">Save</button>
+                    <button type="button" (click)="startCreate()">New</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <div class="row space">
+                <h3>All Categories</h3>
+                <button (click)="refresh()">Refresh</button>
+            </div>
+
+            <div *ngIf="loading">Loading…</div>
+            <table *ngIf="!loading && categories.length">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th style="width:140px">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of categories">
+                        <td>{{ c.name }}</td>
+                        <td>{{ c.description || '—' }}</td>
+                        <td>
+                            <button (click)="startEdit(c)">Edit</button>
+                            <button class="danger" (click)="remove(c)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="!loading && !categories.length" class="muted">No categories.</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="card">
+    <h2>Create Account</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="you@example.com" />
+
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="••••••••" />
+
+        <button type="submit" [disabled]="loading || form.invalid">
+            {{ loading ? 'Creating...': 'Sign Up'  }}
+        </button>
+
+        <div class="error" *ngIf="error">{{ error }}</div>
+    </form>
+
+    <div class="alt">
+        Already have an account? <a routerLink="/sign-in">Sign in</a>
+    </div>
+</div>

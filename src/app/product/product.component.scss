@@ -1,0 +1,370 @@
+/* Page container */
+.page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #fff;
+}
+
+/* Title */
+.page-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+/* Form grid */
+.product-form {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+label span {
+    color: #d00;
+}
+
+input,
+select {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.error {
+    color: #b91c1c;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Actions */
+.actions {
+    text-align: right;
+    margin-top: 16px;
+}
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.btn-outline {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    margin-right: 10px;
+}
+
+.btn-outline:hover {
+    background: #f1f5f9;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: #fff;
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Table */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.product-table th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+}
+
+.product-table tr:hover {
+    background-color: #f9fafb;
+}
+
+.product-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.product-table th,
+.product-table td {
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.product-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.empty {
+    text-align: center;
+    color: #6b7280;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.product-table th,
+.product-table td {
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.product-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+.product-table tr:hover {
+    background: #f9fafb;
+}
+
+.product-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* centers the whole bar */
+    gap: 12px;
+    /* even space between items */
+    margin-top: 16px;
+    flex-wrap: wrap;
+    /* wraps nicely on small screens */
+    font-size: 0.95rem;
+    color: #374151;
+    /* subtle gray text */
+}
+
+.pager button {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.pager button:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+.toolbar { display:flex; gap:8px; align-items:center; margin-bottom:10px; }
+
+.pager button:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.pager select {
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-size: 0.9rem;
+}
+
+.pager span {
+    font-weight: 500;
+}
+
+.page-indicator {
+    min-width: 120px;
+    text-align: center;
+}
+
+.btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+}
+
+.btn-outline:hover {
+    background: #f1f5f9;
+}
+
+.empty {
+    text-align: center;
+    color: #6b7280;
+}
+
+/* Center the upload box */
+.upload-box {
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+    padding: 30px 25px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background: #fff;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Style the buttons */
+.upload-box button {
+    background-color: #1976d2;
+    /* Angular Material blue */
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    margin: 10px 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.upload-box button:hover {
+    background-color: #1565c0;
+}
+
+.upload-box button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* File name display */
+.upload-box span {
+    display: block;
+    margin-top: 8px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Upload status */
+.upload-box div {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.upload-box div:nth-child(odd) {
+    color: #555;
+}
+
+/* Progress text */
+.upload-box div:nth-child(even) {
+    color: #1976d2;
+    font-weight: 600;
+}
+
+/* Optional progress bar style */
+.progress-container {
+    position: relative;
+    height: 8px;
+    width: 100%;
+    background: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 8px;
+    background-color: #1976d2;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* product-export.component.css */
+.export-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.export-box button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #1976d2;
+    color: #fff;
+    cursor: pointer;
+}
+
+.export-box button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.product-table-container {
+    height: 40vh;
+    overflow-y: auto;
+    display: block;
+}

@@ -1,0 +1,118 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f9fafb;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    animation: fadeIn 0.4s ease;
+}
+
+h2 {
+    margin: 0 0 1rem;
+    font-weight: 600;
+    color: #111827;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+input {
+    margin-top: 0.25rem;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+button {
+    margin-top: 1.25rem;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error {
+    margin-top: 0.75rem;
+    color: #dc2626;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.alt {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.alt a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.alt a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 24px 20px;
+        border-radius: 12px;
+    }
+}
